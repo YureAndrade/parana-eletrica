@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "extract:weg": "node scripts/extract-weg-catalog.mjs",
+    "seed:weg": "node scripts/seed-weg-catalog.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
@@ -31,6 +33,7 @@
     "postcss": "^8.4.47",
     "serwist": "^9.0.10",
     "tailwindcss": "^3.4.13",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "xlsx": "^0.18.5"
   }
 }
