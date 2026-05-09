@@ -36,6 +36,9 @@ export interface Database {
           id: string;
           name: string;
           brand: string | null;
+          sap_code: string | null;
+          family: string | null;
+          source: string | null;
           normalized_name: string;
           first_requested_at: string | null;
           request_count: number;
@@ -46,6 +49,9 @@ export interface Database {
           id?: string;
           name: string;
           brand?: string | null;
+          sap_code?: string | null;
+          family?: string | null;
+          source?: string | null;
           first_requested_at?: string | null;
           request_count?: number;
           created_by?: string | null;

@@ -11,7 +11,7 @@ semanal automático para o setor de Compras.
 Etapas concluídas (ver "Ordem de execução" no documento de especificação):
 
 - [x] **1.** Setup Next.js 14 + TypeScript + Tailwind + Serwist (PWA)
-- [x] **2.** Schema Supabase + RLS (migration `supabase/migrations/0001_init.sql`)
+- [x] **2.** Schema Supabase + RLS (migrations `supabase/migrations/0001_init.sql`, `0002_add_sap_code.sql`) + seed do catálogo WEG (~12.8k produtos)
 - [x] **3.** Auth (login por e-mail/senha + middleware de proteção de rotas)
 - [ ] **4.** Tela principal + formulário de registro ⏸ aguardando confirmação
 - [ ] 5–12. Sincronização offline, histórico, painel admin, PDF, e-mail, deploy
@@ -90,6 +90,32 @@ Opção B — **SQL Editor do dashboard**: copie o conteúdo de
    ```
 
    Veja também `supabase/seed.sql`.
+
+### Carregar o catálogo WEG (~12.800 produtos)
+
+Pré-requisito: `.env.local` com `NEXT_PUBLIC_SUPABASE_URL` e
+`SUPABASE_SERVICE_ROLE_KEY` preenchidos, e a migration `0002_add_sap_code.sql`
+aplicada.
+
+```bash
+npm run seed:weg
+```
+
+O script faz upsert em batches de 1000 produtos por sap_code (idempotente —
+pode rodar várias vezes). O JSON-fonte está em `data/weg-products.json`.
+
+Para regenerar o JSON a partir de uma nova lista de preços WEG:
+
+```bash
+npm run extract:weg -- ../Lista_de_Precos_NOVA.xlsm
+```
+
+Estrutura assumida do Excel:
+- Coluna A = Código SAP (8 dígitos)
+- Coluna B = Família
+- Coluna C = Descrição SAP
+
+Sheets esperadas: CONTROLS, DRIVES, SENSORES E SEGURANÇA, CRITICAL POWER.
 
 ## Estrutura do projeto
 
